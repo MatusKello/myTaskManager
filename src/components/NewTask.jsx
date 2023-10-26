@@ -1,3 +1,4 @@
+import { Box, Button, TextField } from '@mui/material';
 import { useState } from 'react';
 
 const NewTask = ({ onAddTask }) => {
@@ -11,15 +12,20 @@ const NewTask = ({ onAddTask }) => {
   };
 
   return (
-    <div>
-      <form>
-        <input
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: '1fr',
+      }}
+    >
+      <Box sx={{ mb: '1rem' }}>
+        <TextField
           value={newTask.title}
           type='text'
           placeholder='Task Title'
           onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
         />
-        <textarea
+        <TextField
           value={newTask.description}
           type='text'
           placeholder='Task Description'
@@ -27,9 +33,15 @@ const NewTask = ({ onAddTask }) => {
             setNewTask({ ...newTask, description: e.target.value })
           }
         />
-        <input onClick={addTask} type='button' value={'Add task'} />
-      </form>
-    </div>
+      </Box>
+      <Button
+        sx={{ justifySelf: 'center' }}
+        onClick={addTask}
+        variant='contained'
+      >
+        Add task
+      </Button>
+    </Box>
   );
 };
 
