@@ -1,6 +1,7 @@
 import { Button, Card, Typography } from '@mui/material';
 
-const Task = ({ id, title, description, deleteTask }) => {
+const Task = ({ task, deleteTask }) => {
+  const { id, title, description } = task;
   return (
     <Card
       sx={{
@@ -11,7 +12,7 @@ const Task = ({ id, title, description, deleteTask }) => {
         border: '1px solid red',
       }}
     >
-      <Typography variant='h3'>{title}</Typography>
+      <Typography variant='h4'>{title}</Typography>
       <Typography variant='subtitle1'>{description}</Typography>
       <Button
         sx={{ justifySelf: 'end' }}

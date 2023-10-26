@@ -8,10 +8,10 @@ const App = () => {
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        padding: '0.5rem',
+        p: 2,
       }}
     >
-      <Typography sx={{ paddingBottom: '1rem' }} variant='h2'>
+      <Typography sx={{ pb: 4 }} variant='h3'>
         Task Manager
       </Typography>
       <TaskList />

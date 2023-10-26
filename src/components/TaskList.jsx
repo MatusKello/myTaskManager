@@ -6,7 +6,11 @@ const TaskList = () => {
   const [tasks, setTasks] = useState([]);
 
   const addTask = (newTask) => {
-    setTasks([...tasks, { id: tasks.length + 1, ...newTask }]);
+    if (tasks.length === 0) {
+      setTasks([{ id: tasks.length + 1, ...newTask }]);
+    } else {
+      setTasks([...tasks, { id: tasks.length + 1, ...newTask }]);
+    }
   };
 
   const deleteTask = (taskId) => {
@@ -16,15 +20,7 @@ const TaskList = () => {
   return (
     <div>
       {tasks.map((task) => {
-        return (
-          <Task
-            key={task.id}
-            id={task.id}
-            title={task.title}
-            description={task.description}
-            deleteTask={deleteTask}
-          />
-        );
+        return <Task key={task.id} task={task} deleteTask={deleteTask} />;
       })}
       <NewTask onAddTask={addTask} />
     </div>
