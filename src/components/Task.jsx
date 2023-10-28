@@ -1,4 +1,5 @@
 import { Button, Card, Typography } from '@mui/material';
+import TaskDescription from './TaskDescription';
 
 const Task = ({ task, deleteTask }) => {
   const { id, title, description } = task;
@@ -14,6 +15,7 @@ const Task = ({ task, deleteTask }) => {
     >
       <Typography variant='h4'>{title}</Typography>
       <Typography variant='subtitle1'>{description}</Typography>
+      <TaskDescription />
       <Button
         sx={{ justifySelf: 'end' }}
         variant='contained'
