@@ -10,6 +10,7 @@ const TaskDescription = () => {
       const newDescription = {
         id: description.length + 1,
         description: inputValue,
+        isCompleted: false, // Add isCompleted property to each description
       };
       setDescription([...description, newDescription]);
       setInputValue('');
@@ -18,6 +19,14 @@ const TaskDescription = () => {
 
   const deleteItem = (itemId) => {
     setDescription(description.filter((item) => item.id !== itemId));
+  };
+
+  const handleComplete = (itemId) => {
+    setDescription((prevDescription) =>
+      prevDescription.map((item) =>
+        item.id === itemId ? { ...item, isCompleted: true } : item
+      )
+    );
   };
 
   return (
@@ -34,11 +43,26 @@ const TaskDescription = () => {
             key={addOne.id}
           >
             <Typography
-              sx={{ flex: 1, fontFamily: 'cursive', ml: 1 }}
+              sx={{
+                flex: 1,
+                fontFamily: 'cursive',
+                ml: 1,
+                color: addOne.isCompleted ? 'green' : 'red',
+                textDecoration: addOne.isCompleted ? 'line-through' : 'none',
+              }}
               variant='h5'
             >
               {addOne.description}
             </Typography>
+            <Button
+              sx={{
+                color: addOne.isCompleted ? 'green' : 'red',
+              }}
+              onClick={() => handleComplete(addOne.id)}
+              variant='outlined'
+            >
+              {addOne.isCompleted ? 'Completed' : 'Mark as Completed'}
+            </Button>
             <Button variant='contained' onClick={() => deleteItem(addOne.id)}>
               Delete
             </Button>
