@@ -1,12 +1,14 @@
+import React, { useState } from 'react';
 import { Box, Button, TextField } from '@mui/material';
-import { useState } from 'react';
+import moment from 'moment';
 
 const NewTask = ({ onAddTask }) => {
   const [newTask, setNewTask] = useState({ title: '', description: '' });
 
   const addTask = () => {
     if (newTask.title && newTask.description) {
-      onAddTask(newTask);
+      const currentDateAndTime = moment().format('DD. MM. YYYY - HH:mm:ss');
+      onAddTask({ ...newTask, dateTime: currentDateAndTime });
       setNewTask({ title: '', description: '' });
     }
   };

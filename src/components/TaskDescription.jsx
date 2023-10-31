@@ -1,5 +1,6 @@
 import { Box, Button, Card, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
+import DateTime from './DateTime';
 
 const TaskDescription = () => {
   const [description, setDescription] = useState([]);
@@ -10,7 +11,8 @@ const TaskDescription = () => {
       const newDescription = {
         id: description.length + 1,
         description: inputValue,
-        isCompleted: false, // Add isCompleted property to each description
+        isCompleted: false,
+        completedDateTime: null, // Initialize completedDateTime as null
       };
       setDescription([...description, newDescription]);
       setInputValue('');
@@ -24,7 +26,13 @@ const TaskDescription = () => {
   const handleComplete = (itemId) => {
     setDescription((prevDescription) =>
       prevDescription.map((item) =>
-        item.id === itemId ? { ...item, isCompleted: true } : item
+        item.id === itemId
+          ? {
+              ...item,
+              isCompleted: true,
+              completedDateTime: new Date(), // Set completedDateTime as the current date and time
+            }
+          : item
       )
     );
   };
@@ -63,6 +71,9 @@ const TaskDescription = () => {
             >
               {addOne.isCompleted ? 'Completed' : 'Mark as Completed'}
             </Button>
+            {addOne.completedDateTime && (
+              <DateTime date={addOne.completedDateTime} />
+            )}
             <Button variant='contained' onClick={() => deleteItem(addOne.id)}>
               Delete
             </Button>

@@ -1,8 +1,10 @@
-import { Button, Card, Typography } from '@mui/material';
+import React from 'react';
+import { Box, Button, Card, Typography } from '@mui/material';
 import TaskDescription from './TaskDescription';
 
 const Task = ({ task, deleteTask }) => {
-  const { id, title, description } = task;
+  const { id, title, description, dateTime } = task; // Extract dateTime from the task object
+
   return (
     <Card
       sx={{
@@ -13,8 +15,13 @@ const Task = ({ task, deleteTask }) => {
         border: '1px solid red',
       }}
     >
-      <Typography variant='h4'>{title}</Typography>
-      <Typography variant='subtitle1'>{description}</Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div>
+          <Typography variant='h4'>{title}</Typography>
+          <Typography variant='subtitle1'>{description}</Typography>
+        </div>
+        <Typography>{dateTime}</Typography> {/* Display the date and time */}
+      </Box>
       <TaskDescription />
       <Button
         sx={{ justifySelf: 'end' }}
