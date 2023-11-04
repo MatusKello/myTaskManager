@@ -3,7 +3,9 @@ import { useState } from 'react';
 import DateTime from './DateTime';
 
 const TaskDescription = () => {
-  const [description, setDescription] = useState([]);
+  const [description, setDescription] = useState([
+    { id: 1, description: 'pivo', isCompleted: false, completedDateTime: null },
+  ]);
   const [inputValue, setInputValue] = useState('');
 
   const addDesc = () => {
