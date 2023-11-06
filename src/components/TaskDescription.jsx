@@ -1,11 +1,34 @@
 import { Box, Button, Card, TextField, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DateTime from './DateTime';
+import { sortArrayByDateOrAbcd } from '../utils/helpers';
 
-const TaskDescription = () => {
+const TaskDescription = ({ sortOption, sortOrder, sortSwitch }) => {
   const [description, setDescription] = useState([
     { id: 1, description: 'pivo', isCompleted: false, completedDateTime: null },
+    {
+      id: 2,
+      description: 'ananas',
+      isCompleted: false,
+      completedDateTime: null,
+    },
+    {
+      id: 3,
+      description: 'banan',
+      isCompleted: false,
+      completedDateTime: null,
+    },
+    {
+      id: 4,
+      description: 'rohlik',
+      isCompleted: false,
+      completedDateTime: null,
+    },
   ]);
+  console.log(
+    '🚀 ~ file: TaskDescription.jsx:28 ~ TaskDescription ~ description:',
+    description
+  );
   const [inputValue, setInputValue] = useState('');
 
   const addDesc = () => {
@@ -20,6 +43,19 @@ const TaskDescription = () => {
       setInputValue('');
     }
   };
+
+  useEffect(() => {
+    if (sortSwitch) {
+      const sortedDescriptions = sortArrayByDateOrAbcd(
+        description,
+        'description',
+        sortOption,
+        sortOrder
+      );
+      console.log(sortOrder);
+      setDescription(sortedDescriptions);
+    }
+  }, [sortSwitch, sortOption, sortOrder]);
 
   const deleteItem = (itemId) => {
     setDescription(description.filter((item) => item.id !== itemId));

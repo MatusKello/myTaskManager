@@ -2,7 +2,14 @@ import React from 'react';
 import { Box, Button, Card, Typography } from '@mui/material';
 import TaskDescription from './TaskDescription';
 
-const Task = ({ task, deleteTask }) => {
+const Task = ({
+  task,
+  deleteTask,
+  sortOption,
+  sortOrder,
+  sortSwitch,
+  sortedTasks,
+}) => {
   const { id, title, description, dateTime } = task; // Extract dateTime from the task object
 
   return (
@@ -22,7 +29,12 @@ const Task = ({ task, deleteTask }) => {
         </div>
         <Typography>{dateTime}</Typography> {/* Display the date and time */}
       </Box>
-      <TaskDescription />
+      <TaskDescription
+        sortOption={sortOption}
+        sortOrder={sortOrder}
+        sortSwitch={sortSwitch}
+        sortedTasks={sortedTasks}
+      />
       <Button
         sx={{ justifySelf: 'end' }}
         variant='contained'
