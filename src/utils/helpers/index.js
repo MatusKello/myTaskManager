@@ -7,14 +7,12 @@ export const sortArrayByDateOrAbcd = (array, key, sortOption, sortOrder) => {
     if (sortOption === 'date') {
       const dateA = moment(a.dateTime, 'DD. MM. YYYY - HH:mm:ss');
       const dateB = moment(b.dateTime, 'DD. MM. YYYY - HH:mm:ss');
-      comparison = dateA.isBefore(dateB) ? -1 : 1;
+      comparison = dateA.diff(dateB);
     } else if (sortOption === 'abcd') {
       comparison = a[key].localeCompare(b[key]);
     }
-    console.log('🚀 ~ file: index.js:13 ~ result ~ comparison:', comparison);
     // Apply sortOrder (ascending or descending)
     return sortOrder === 'asc' ? comparison : -comparison;
   });
-  console.log(result);
   return result;
 };

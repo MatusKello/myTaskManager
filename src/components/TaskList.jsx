@@ -49,7 +49,6 @@ const TaskList = () => {
   const handleSortOrderChange = (event) => {
     setSortOrder(event.target.value);
   };
-  console.log(sortOrder);
 
   //sorting task list by date or abcd
   //dat do useeffect  - funkcia na zaklade statute true/false = sortswtich
@@ -64,7 +63,7 @@ const TaskList = () => {
       );
       setTasks(sortedTasks);
     }
-  }, [sortSwitch, sortOption, sortOrder]);
+  }, [sortSwitch, sortOption, sortOrder, tasks]);
 
   const handleSortToggle = () => {
     setSortSwitch((prevSort) => !prevSort);
@@ -83,7 +82,7 @@ const TaskList = () => {
       <FormControl component='fieldset' sx={{ m: 1, minWidth: 120 }}>
         <FormControlLabel
           control={<Switch checked={sortSwitch} onChange={handleSortToggle} />}
-          label={sortSwitch ? 'Sort Task List' : 'Sort Task Description'}
+          label={sortSwitch ? 'Sort Task Description' : 'Sort Task List'}
         />
       </FormControl>
 

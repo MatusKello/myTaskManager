@@ -1,7 +1,7 @@
 import { Box, Button, Card, TextField, Typography } from '@mui/material';
 import { useState, useEffect } from 'react';
-import DateTime from './DateTime';
 import { sortArrayByDateOrAbcd } from '../utils/helpers';
+import moment from 'moment';
 
 const TaskDescription = ({ sortOption, sortOrder, sortSwitch }) => {
   const [description, setDescription] = useState([
@@ -25,10 +25,6 @@ const TaskDescription = ({ sortOption, sortOrder, sortSwitch }) => {
       completedDateTime: null,
     },
   ]);
-  console.log(
-    '🚀 ~ file: TaskDescription.jsx:28 ~ TaskDescription ~ description:',
-    description
-  );
   const [inputValue, setInputValue] = useState('');
 
   const addDesc = () => {
@@ -52,7 +48,6 @@ const TaskDescription = ({ sortOption, sortOrder, sortSwitch }) => {
         sortOption,
         sortOrder
       );
-      console.log(sortOrder);
       setDescription(sortedDescriptions);
     }
   }, [sortSwitch, sortOption, sortOrder]);
@@ -62,13 +57,14 @@ const TaskDescription = ({ sortOption, sortOrder, sortSwitch }) => {
   };
 
   const handleComplete = (itemId) => {
+    const currentDateTime = moment().format('DD. MM. YYYY - HH:mm:ss');
     setDescription((prevDescription) =>
       prevDescription.map((item) =>
         item.id === itemId
           ? {
               ...item,
               isCompleted: true,
-              completedDateTime: new Date(), // Set completedDateTime as the current date and time
+              completedDateTime: currentDateTime, // Set completedDateTime as the current date and time
             }
           : item
       )
@@ -78,6 +74,11 @@ const TaskDescription = ({ sortOption, sortOrder, sortSwitch }) => {
   return (
     <>
       {description.map((addOne) => {
+        const formattedCompletedDateTime = addOne.completedDateTime
+          ? moment(addOne.completedDateTime, 'DD. MM. YYYY - HH:mm:ss').format(
+              'DD. MM. YYYY - HH:mm:ss'
+            )
+          : null;
         return (
           <Card
             sx={{
@@ -110,7 +111,9 @@ const TaskDescription = ({ sortOption, sortOrder, sortSwitch }) => {
               {addOne.isCompleted ? 'Completed' : 'Mark as Completed'}
             </Button>
             {addOne.completedDateTime && (
-              <DateTime date={addOne.completedDateTime} />
+              <Typography variant='subtitle1'>
+                {formattedCompletedDateTime}
+              </Typography>
             )}
             <Button variant='contained' onClick={() => deleteItem(addOne.id)}>
               Delete

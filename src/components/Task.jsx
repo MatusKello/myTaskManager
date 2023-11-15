@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Button, Card, Typography } from '@mui/material';
 import TaskDescription from './TaskDescription';
 
