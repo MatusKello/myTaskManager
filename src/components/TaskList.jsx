@@ -42,14 +42,6 @@ const TaskList = () => {
     setTasks(tasks.filter((task) => task.id !== taskId));
   };
 
-  const handleSortChange = (event) => {
-    setSortOption(event.target.value);
-  };
-
-  const handleSortOrderChange = (event) => {
-    setSortOrder(event.target.value);
-  };
-
   //sorting task list by date or abcd
   //dat do useeffect  - funkcia na zaklade statute true/false = sortswtich
 
@@ -65,15 +57,14 @@ const TaskList = () => {
     }
   }, [sortSwitch, sortOption, sortOrder, tasks]);
 
-  const handleSortToggle = () => {
-    setSortSwitch((prevSort) => !prevSort);
-  };
-
   return (
     <div>
       <FormControl variant='standard' sx={{ m: 1, minWidth: 120 }}>
         <InputLabel>Sort by</InputLabel>
-        <Select value={sortOption} onChange={handleSortChange}>
+        <Select
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+        >
           <MenuItem value='date'>Date</MenuItem>
           <MenuItem value='abcd'>Alphabetical</MenuItem>
         </Select>
@@ -81,14 +72,22 @@ const TaskList = () => {
 
       <FormControl component='fieldset' sx={{ m: 1, minWidth: 120 }}>
         <FormControlLabel
-          control={<Switch checked={sortSwitch} onChange={handleSortToggle} />}
+          control={
+            <Switch
+              checked={sortSwitch}
+              onChange={() => setSortSwitch(!sortSwitch)}
+            />
+          }
           label={sortSwitch ? 'Sort Task Description' : 'Sort Task List'}
         />
       </FormControl>
 
       <FormControl variant='standard' sx={{ m: 1, minWidth: 120 }}>
         <InputLabel>Sort order</InputLabel>
-        <Select value={sortOrder} onChange={handleSortOrderChange}>
+        <Select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+        >
           <MenuItem value='asc'>Ascending</MenuItem>
           <MenuItem value='desc'>Descending</MenuItem>
         </Select>

@@ -64,7 +64,7 @@ const TaskDescription = ({ sortOption, sortOrder, sortSwitch }) => {
           ? {
               ...item,
               isCompleted: true,
-              completedDateTime: currentDateTime, // Set completedDateTime as the current date and time
+              dateTime: currentDateTime, // Set dateTime as the current date and time
             }
           : item
       )
@@ -74,8 +74,8 @@ const TaskDescription = ({ sortOption, sortOrder, sortSwitch }) => {
   return (
     <>
       {description.map((addOne) => {
-        const formattedCompletedDateTime = addOne.completedDateTime
-          ? moment(addOne.completedDateTime, 'DD. MM. YYYY - HH:mm:ss').format(
+        const formattedCompletedDateTime = addOne.dateTime
+          ? moment(addOne.dateTime, 'DD. MM. YYYY - HH:mm:ss').format(
               'DD. MM. YYYY - HH:mm:ss'
             )
           : null;
@@ -110,7 +110,7 @@ const TaskDescription = ({ sortOption, sortOrder, sortSwitch }) => {
             >
               {addOne.isCompleted ? 'Completed' : 'Mark as Completed'}
             </Button>
-            {addOne.completedDateTime && (
+            {addOne.dateTime && (
               <Typography variant='subtitle1'>
                 {formattedCompletedDateTime}
               </Typography>
