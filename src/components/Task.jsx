@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Card,
-  Collapse,
-  Typography,
-  Switch,
-  FormControlLabel,
-} from '@mui/material';
+import { Box, Button, Card, Collapse, Typography } from '@mui/material';
 import TaskDescription from './TaskDescription';
 import { useState } from 'react';
 
@@ -17,36 +9,40 @@ const Task = ({
   sortOrder,
   sortSwitch,
   sortedTasks,
+  width,
 }) => {
   const { id, title, description, dateTime } = task; // Extract dateTime from the task object
   const [checked, setChecked] = useState(true);
 
   return (
-    <Box>
-      <FormControlLabel
-        control={
-          <Switch checked={checked} onChange={() => setChecked(!checked)} />
-        }
-        label={title}
-      />
-      <Collapse in={checked}>
-        <Card
+    <Box sx={{ width: width, pr: 0.5 }}>
+      <Card
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          mb: '1rem',
+          p: '1rem',
+          border: (theme) => `1px solid ${theme.palette.divider}`,
+        }}
+      >
+        <Box
+          onClick={() => setChecked(!checked)}
           sx={{
-            display: 'grid',
-            gridTemplateColumns: '1fr',
-            mb: '1rem',
-            p: '1rem',
-            border: '1px solid red',
+            display: 'flex',
+            justifyContent: 'space-between',
+            cursor: 'pointer',
           }}
         >
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div>
-              <Typography variant='h4'>{title}</Typography>
-              <Typography variant='subtitle1'>{description}</Typography>
-            </div>
-            <Typography>{dateTime}</Typography>{' '}
-            {/* Display the date and time */}
-          </Box>
+          <div>
+            <Typography variant='h4'>{title}</Typography>
+            <Typography variant='subtitle1'>{description}</Typography>
+          </div>
+          <Typography>{dateTime}</Typography> {/* Display the date and time */}
+          <Button onClick={() => setChecked(!checked)}>
+            {checked ? 'Collapse' : 'Expand'}
+          </Button>
+        </Box>
+        <Collapse in={checked}>
           <TaskDescription
             sortOption={sortOption}
             sortOrder={sortOrder}
@@ -60,8 +56,8 @@ const Task = ({
           >
             Delete
           </Button>
-        </Card>
-      </Collapse>
+        </Collapse>
+      </Card>
     </Box>
   );
 };
